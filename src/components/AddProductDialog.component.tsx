@@ -1,10 +1,8 @@
 import { DialogContent, DialogFooter, DialogTitle } from "./ui/dialog";
-import { arrayMove, SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable";
 import { useCallback, useEffect, useState } from "react";
-import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery } from "@tanstack/react-query";
 import { fetchProucts } from "@/pages/home.api";
 import type { Product as ProductType } from "@/schemas/product.schema";
-import { DragEndEvent } from "@dnd-kit/core";
 import CustomInput from "./CustomInput.component";
 import { Icon } from "@iconify/react";
 import { Spinner } from "flowbite-react";
@@ -21,7 +19,7 @@ export default function AddProductDialog(props: Props) {
 
   const [products, setProducts] = useState<ProductType[]>([]);
   const [searchInput, setSearchInput] = useState<string>("");
-  const [page, setPage] = useState<number>(1);
+  const [page, _setPage] = useState<number>(1);
 
   const observer = useRef<IntersectionObserver | null>(null);
   const rootElement = useRef<HTMLDivElement | null>(null);
@@ -39,7 +37,7 @@ export default function AddProductDialog(props: Props) {
     getNextPageParam: (lastPage, allPages) => {
       return lastPage.length ? allPages.length + 1 : undefined;
     },
-    getPreviousPageParam: (firstPage, allPages) => {
+    getPreviousPageParam: (_firstPage, _allPages) => {
       return -1
     },
     initialPageParam: 1,
