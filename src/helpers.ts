@@ -1,10 +1,11 @@
 import axios from "axios";
 
-let baseUrl = "http://stageapi.monkcommerce.app/"
+let baseUrl = "https://stageapi.monkcommerce.app/"
 
-const axiosInstance = axios.create({
-  baseURL: baseUrl
+
+export const axiosInstance = axios.create({
+  baseURL: baseUrl,
+  withCredentials: false
 });
 
-export default axiosInstance;
 
