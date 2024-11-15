@@ -21,7 +21,7 @@ interface Props {
 
 export default function AddProductDialog(props: Props) {
 
-  const { open, setOpen, products: productsAtHome, setProducts: setProductsAtHome, productToReplace, setProductToReplace } = props;
+  const { open, setOpen, setProducts: setProductsAtHome, productToReplace } = props;
 
   const [products, setProducts] = useState<ProductType[]>([]);
   const [searchInput, setSearchInput] = useState<string>("");
@@ -118,7 +118,7 @@ export default function AddProductDialog(props: Props) {
     )
   }, []);
 
-  const handleVariantClick = useCallback((e: React.ChangeEvent<HTMLInputElement>, p: ProductType, v: VariantType) => {
+  const handleVariantClick = useCallback((e: React.ChangeEvent<HTMLInputElement>, v: VariantType) => {
 
     setProducts((prevProducts) => {
       return prevProducts.map((product) => {
@@ -175,7 +175,7 @@ export default function AddProductDialog(props: Props) {
                           return (
                             <div key={variant_idx} ref={isLastVariantOfLastProd ? lastElementRef : null} className=" flex pr-2 py-3 border-t border-gray-300 justify-between pl-10">
                               <div className="h-full flex gap-3">
-                                <input checked={variant.selected} onChange={(e) => handleVariantClick(e, prod, variant)} type="checkbox" />
+                                <input checked={variant.selected} onChange={(e) => handleVariantClick(e, variant)} type="checkbox" />
                                 <p>{variant.title}</p>
                               </div>
                               <div className="flex gap-3 pr-5">

@@ -12,7 +12,7 @@ type Props = {
 }
 
 export default function Product(props: Props) {
-  const [inputValue, setInputValue] = useState(props.inputValue ?? "");
+  const [_inputValue, setInputValue] = useState(props.inputValue ?? "");
   const { setNodeRef, listeners, attributes, transform, transition } = useSortable({ id: props?.product?.id || -1 });
 
 
