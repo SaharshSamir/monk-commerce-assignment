@@ -6,12 +6,15 @@ import { Icon } from "@iconify/react";
 import CustomInput from "@/components/CustomInput.component";
 
 type Props = {
-  product?: Product
+  product?: Product,
+  openDialog: React.Dispatch<React.SetStateAction<boolean>>,
+  inputValue: string
 }
 
 export default function Product(props: Props) {
-  const [inputValue, setInputValue] = useState("");
+  const [inputValue, setInputValue] = useState(props.inputValue ?? "");
   const { setNodeRef, listeners, attributes, transform, transition } = useSortable({ id: props?.product?.id || -1 });
+
 
   const styles = {
     transform: CSS.Transform.toString(transform),
@@ -19,11 +22,11 @@ export default function Product(props: Props) {
   }
 
   return (
-    <div className="z-50 w-full col-span-2 flex gap-3" style={styles} ref={setNodeRef} {...attributes}>
+    <div className="z-50 w-full col-span-2 flex gap-3 my-3" style={styles} ref={setNodeRef} {...attributes}>
       <div {...listeners} className="flex items-center"><Icon icon="lsicon:drag-filled" fontSize={30} /></div>
       <div className="w-1/2 flex justify-center border relative text-gray-400 focus-within:text-gray-600 ">
         <form className="w-full">
-          <CustomInput value={inputValue} setValue={setInputValue} icon="jam:pencil-f" iconPosition="right" />
+          <CustomInput value={props.inputValue} setValue={setInputValue} icon="jam:pencil-f" iconPosition="right" iconAction={() => props.openDialog(true)} />
         </form>
       </div>
       <div className="w-1/2 flex justify-center">
