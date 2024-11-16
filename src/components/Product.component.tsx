@@ -1,7 +1,6 @@
 import type { Product } from "@/schemas/product.schema"
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { useState } from 'react';
 import { Icon } from "@iconify/react";
 import CustomInput from "@/components/CustomInput.component";
 
@@ -12,9 +11,8 @@ type Props = {
 }
 
 export default function Product(props: Props) {
-  const [_inputValue, setInputValue] = useState(props.inputValue ?? "");
+  // const [_inputValue, _setInputValue] = useState(props.inputValue ?? "");
   const { setNodeRef, listeners, attributes, transform, transition } = useSortable({ id: props?.product?.id || -1 });
-
 
   const styles = {
     transform: CSS.Transform.toString(transform),
@@ -26,7 +24,7 @@ export default function Product(props: Props) {
       <div {...listeners} className="flex items-center"><Icon icon="lsicon:drag-filled" fontSize={30} /></div>
       <div className="w-1/2 flex justify-center border relative text-gray-400 focus-within:text-gray-600 ">
         <form className="w-full">
-          <CustomInput value={props.inputValue} setValue={setInputValue} icon="jam:pencil-f" iconPosition="right" iconAction={() => props.openDialog(true)} />
+          <CustomInput value={props.inputValue} icon="jam:pencil-f" iconPosition="right" iconAction={() => props.openDialog(true)} />
         </form>
       </div>
       <div className="w-1/2 flex justify-center">

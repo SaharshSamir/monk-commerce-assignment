@@ -2,7 +2,8 @@ import { Icon } from "@iconify/react";
 
 type InputProps = {
   value: string;
-  setValue: React.Dispatch<React.SetStateAction<string>>;
+  // setValue: React.Dispatch<React.SetStateAction<string>>;
+  onChange?: React.ChangeEventHandler<HTMLInputElement>,
   className?: string;
   icon?: string;
   iconPosition?: "left" | "right"
@@ -10,7 +11,7 @@ type InputProps = {
 }
 
 export default function CustomInput(props: InputProps) {
-  const { value, setValue, icon, iconPosition = "right", className: styles, iconAction } = props;
+  const { value, icon, onChange, iconPosition = "right", className: styles, iconAction } = props;
   return (
     <div className="relative">
       {icon && <div className={`absolute inset-y-0 flex items-center ${iconPosition === "right" ? "pe-3 end-0" : "ps-3 start-0"} ${iconAction ? "cursor-pointer" : "pointer-events-none"} `}>
@@ -21,7 +22,7 @@ export default function CustomInput(props: InputProps) {
         placeholder="Select Product"
         required
         value={value}
-        onChange={e => setValue(e.target.value)}
+        onChange={onChange}
       />
     </div>
   )
