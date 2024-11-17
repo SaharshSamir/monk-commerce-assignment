@@ -106,10 +106,11 @@ export default function Product(props: Props) {
           <Icon icon={"ic:baseline-close"} fontSize={25} />
         </div>
       </div>
-      <div className="w-full flex justify-end mt-2">
-        <p className="text-blue-600 underline">Show Variants</p>
+      <div onClick={() => setShowVariants(!showVariants)} className="w-full flex items-center justify-end mt-2 cursor-pointer">
+        <p className="text-[#006EFF] underline">Show Variants</p>
+        <span className="flex items-center">{!showVariants ? (<Icon icon="mdi:keyboard-arrow-down" color="#006EFF" />) : (<Icon icon="mdi:keyboard-arrow-up" color="#006EFF" />)}</span>
       </div>
-      <div className="w-full flex flex-col mt-2 pl-8">
+      {showVariants && (<div className="w-full flex flex-col mt-2 pl-8">
         {
           product?.variants
           &&
@@ -125,7 +126,7 @@ export default function Product(props: Props) {
             </DndContext>
           )
         }
-      </div>
+      </div>)}
     </div>
   )
 }

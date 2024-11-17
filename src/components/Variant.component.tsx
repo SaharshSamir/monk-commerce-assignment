@@ -1,7 +1,7 @@
 import { Product, Variant as VariantType } from "@/schemas/product.schema";
 import { Icon } from "@iconify/react";
 import CustomInput from "./CustomInput.component";
-import { arrayMove, useSortable } from '@dnd-kit/sortable';
+import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from "@dnd-kit/utilities";
 
 type Props = {
@@ -11,11 +11,16 @@ type Props = {
 
 export default function Variant(props: Props) {
 
-  const { variant, setProducts } = props;
+  const { variant } = props;
 
-  const handleDiscountValueChange = (e: React.ChangeEvent<HTMLInputElement>, variant: VariantType) => { };
+  const handleDiscountValueChange = (_e: React.ChangeEvent<HTMLInputElement>, _variant: VariantType) => {
+    //handle logic to save input to state or save it to db
 
-  const handleDiscountTypeChange = (e: React.ChangeEvent<HTMLSelectElement>, variant: VariantType) => { };
+  };
+
+  const handleDiscountTypeChange = (_e: React.ChangeEvent<HTMLSelectElement>, _variant: VariantType) => {
+    //handle logic to save input to state or save it to db
+  };
 
   //for handling drag for variants
   const { setNodeRef, listeners, attributes, transform, transition } = useSortable({ id: variant?.id || -1 });

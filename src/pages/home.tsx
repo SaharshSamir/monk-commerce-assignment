@@ -1,7 +1,7 @@
 import { closestCenter, DndContext, DragEndEvent } from "@dnd-kit/core";
 import { arrayMove, SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import Product from "@/components/Product.component";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Product as ProductType } from "@/schemas/product.schema";
 import { Dialog } from "@radix-ui/react-dialog";
 import AddProductDialog from "@/components/AddProductDialog.component";
@@ -25,7 +25,7 @@ export default function Home() {
   const [openDialog, setOpenDialog] = useState<boolean>(false);
   const [productToReplace, setProductToReplace] = useState(-1);
   const productToDiscountMap: ProductToDscount = new Map<number, Discount>();
-  const [dicountValue, setDiscountValue] = useState<ProductToDscount>(productToDiscountMap);
+  const [_dicountValue, setDiscountValue] = useState<ProductToDscount>(productToDiscountMap);
 
   const handleDragEnd = (e: DragEndEvent) => {
     const { active, over } = e;

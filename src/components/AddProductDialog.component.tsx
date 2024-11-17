@@ -23,7 +23,7 @@ interface Props {
 
 export default function AddProductDialog(props: Props) {
 
-  const { open, setOpen, setProducts: setProductsAtHome, productToReplace, setDiscountValue } = props;
+  const { open, setOpen, setProducts: setProductsAtHome, productToReplace } = props;
 
   const [products, setProducts] = useState<ProductType[]>([]);
   const [searchInput, setSearchInput] = useState<string>("");
