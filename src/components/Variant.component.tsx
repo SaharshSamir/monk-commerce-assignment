@@ -30,7 +30,7 @@ export default function Variant(props: Props) {
   }
 
   return (
-    <div ref={setNodeRef} style={styles} {...attributes} className="flex w-full gap-2 my-2">
+    <div ref={setNodeRef} style={styles} {...attributes} className="flex justify-between w-full gap-2 my-2">
       <div className="flex w-1/2">
         <div {...listeners} className="flex items-center"><Icon icon="lsicon:drag-filled" fontSize={30} /></div>
         <div className="rounded-full shadow-sm w-full bg-white p-2 flex border border-[#00000012] justify-center">
@@ -38,7 +38,7 @@ export default function Variant(props: Props) {
         </div>
       </div>
       <div className="w-1/3 flex gap-2 justify-center">
-        <CustomInput className="rounded-full bg-white" onChange={(e) => handleDiscountValueChange(e, variant)} value={variant?.discount?.toString() || ""} defaultValue="0" />
+        <CustomInput className="rounded-full bg-white w-5" onChange={(e) => handleDiscountValueChange(e, variant)} value={variant?.discount?.toString() || ""} defaultValue="0" />
         <select className="rounded-full" onChange={(e) => handleDiscountTypeChange(e, variant)}>
           <option>Flat</option>
           <option>Percentage</option>

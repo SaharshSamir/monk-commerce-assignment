@@ -72,7 +72,7 @@ export default function Product(props: Props) {
 
   return (
     <div className="w-full col-span-2 my-3" style={styles} ref={setNodeRef} {...attributes}>
-      <div className="z-50 w-full flex gap-2 " >
+      <div className="z-50 w-full flex gap-2 justify-between" >
         <div {...listeners} className="flex items-center"><Icon icon="lsicon:drag-filled" fontSize={30} /></div>
         <div className="w-1/2 flex justify-center border relative text-gray-400 focus-within:text-gray-600 ">
           <form className="w-full">
@@ -112,7 +112,7 @@ export default function Product(props: Props) {
           <span className="flex items-center">{!showVariants ? (<Icon icon="mdi:keyboard-arrow-down" color="#006EFF" />) : (<Icon icon="mdi:keyboard-arrow-up" color="#006EFF" />)}</span>
         </div>)
       }
-      {showVariants && (<div className="w-full flex flex-col mt-2 pl-8">
+      {showVariants && (<div className="border-b border-[#0000001A] w-full flex flex-col mt-2 py-4 pl-16">
         {
           product?.variants
           &&

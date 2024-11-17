@@ -29,6 +29,7 @@ export default function AddProductDialog(props: Props) {
   const [searchInput, setSearchInput] = useState<string>("");
   const [page, _setPage] = useState<number>(1);
   const [searchQuery, setSearchQuery] = useState("");
+  const [productsSelected, setProductsSelected] = useState(0);
   // const [adddProducts, setAddProducts] = useState<ProductType[]>();
 
   const observer = useRef<IntersectionObserver | null>(null);
@@ -151,8 +152,21 @@ export default function AddProductDialog(props: Props) {
   }, []);
 
 
+  useEffect(() => {
+
+    let productsSelected = products.reduce((acc, currProd) => {
+      if (currProd.selected) {
+        return ++acc;
+      }
+      return acc;
+    }, 0);
+    console.log("Is this even running", productsSelected);
+    setProductsSelected(productsSelected);
+  }, [products]);
+
+
   return (
-    <DialogContent className="p-0 h-[70vh] max-w-[35%] overflow-hidden">
+    <DialogContent className="p-0 min-h-[72vh] max-w-[35%] overflow-hidden">
       <div>
         <DialogTitle className="px-4 pt-4 bg-white">
           <p className="text-2xl">Select Products</p>
@@ -166,14 +180,14 @@ export default function AddProductDialog(props: Props) {
             />
           </div>
         </DialogTitle>
-        <div ref={rootElement} className="border-2 border-green-300 h-[420px] overflow-scroll">
+        <div ref={rootElement} className="h-[420px] overflow-scroll">
           <div id="container" className="overflow-scroll h-full">
             {!isLoading ? products.map((prod, prod_idx, prod_arr) => {
               return (
                 <div ref={lastElementRef} key={prod_idx} >
                   <div className="w-full border-t border-gray-300 p-3 flex justify-between">
                     <div className="flex gap-2 items-center">
-                      <input checked={prod.selected} type="checkbox" onChange={(e) => handleProductClick(e, prod)} />
+                      <input className="appearance-none w-4 h-4 rounded-sm bg-white checked:bg-[#008060] checked:border-none focus:ring-0 focus:outline-none" checked={prod.selected} type="checkbox" onChange={(e) => handleProductClick(e, prod)} />
                       <div className="border border-gray-200 rounded-md flex items-center justify-center h-9 w-9">
                         {prod.image?.src ? (<img className="object-fit" src={prod.image?.src} />) : (<Icon icon={"gridicons:image"} fontSize={20} color="#8C9096" />)}
                       </div>
@@ -185,7 +199,7 @@ export default function AddProductDialog(props: Props) {
                     return (
                       <div key={variant_idx} ref={isLastVariantOfLastProd ? lastElementRef : null} className=" flex pr-2 py-3 border-t border-gray-300 justify-between pl-10">
                         <div className="h-full flex gap-3">
-                          <input checked={variant.selected} onChange={(e) => handleVariantClick(e, variant)} type="checkbox" />
+                          <input className="appearance-none w-4 h-4 rounded-sm bg-white checked:bg-[#008060] checked:border-none focus:ring-0 focus:outline-none" checked={variant.selected} onChange={(e) => handleVariantClick(e, variant)} type="checkbox" />
                           <p>{variant.title}</p>
                         </div>
                         <div className="flex gap-3 pr-5">
@@ -203,13 +217,13 @@ export default function AddProductDialog(props: Props) {
             }
           </div>
         </div>
-        <div className="h-30 flex p-3 justify-between w-full bg-red-200 ">
+        <div className="h-14 flex p-3 justify-between w-full border-t border-[#00000066]">
           <div>
-            1 product selected
+            {productsSelected} product{productsSelected === 1 ? "s" : ""} selected
           </div>
           <div className="flex gap-2">
-            <button onClick={() => setOpen(false)}>cancel</button>
-            <button onClick={handleAddProduct}>Add</button>
+            <button className="border border-[#00000066] text-[#00000099] font-semibold rounded-sm px-6" onClick={() => setOpen(false)}>cancel</button>
+            <button className="rounded-sm bg-[#008060] text-white font-semibold px-6" onClick={handleAddProduct}>Add</button>
           </div>
         </div>
         <DialogFooter className="sticky bottom-0">
