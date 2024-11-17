@@ -21,7 +21,7 @@ export default function Product(props: Props) {
   const { product, openDialog, inputValue, setDiscountValue, setProducts } = props;
 
   const [showDiscount, setShowDiscount] = useState<boolean>(false);
-  const [showVariants, setShowVariants] = useState<boolean>(false);
+  const [showVariants, setShowVariants] = useState<boolean>(true);
 
   //for handling drag for products
   const { setNodeRef, listeners, attributes, transform, transition } = useSortable({ id: product?.id || -1 });
@@ -106,10 +106,12 @@ export default function Product(props: Props) {
           <Icon icon={"ic:baseline-close"} fontSize={25} />
         </div>
       </div>
-      <div onClick={() => setShowVariants(!showVariants)} className="w-full flex items-center justify-end mt-2 cursor-pointer">
-        <p className="text-[#006EFF] underline">Show Variants</p>
-        <span className="flex items-center">{!showVariants ? (<Icon icon="mdi:keyboard-arrow-down" color="#006EFF" />) : (<Icon icon="mdi:keyboard-arrow-up" color="#006EFF" />)}</span>
-      </div>
+      {
+        product && product.variants.length > 1 && (<div onClick={() => setShowVariants(!showVariants)} className="w-full flex items-center justify-end mt-2 cursor-pointer">
+          <p className="text-[#006EFF] underline">Show Variants</p>
+          <span className="flex items-center">{!showVariants ? (<Icon icon="mdi:keyboard-arrow-down" color="#006EFF" />) : (<Icon icon="mdi:keyboard-arrow-up" color="#006EFF" />)}</span>
+        </div>)
+      }
       {showVariants && (<div className="w-full flex flex-col mt-2 pl-8">
         {
           product?.variants
