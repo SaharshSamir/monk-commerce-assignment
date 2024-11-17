@@ -7,11 +7,12 @@ import { CSS } from "@dnd-kit/utilities";
 type Props = {
   variant: VariantType;
   setProducts: React.Dispatch<React.SetStateAction<Product[]>>
+  handleDeleteVariant: (e: React.MouseEvent<SVGSVGElement, MouseEvent>, variantIndex: number) => void;
 }
 
 export default function Variant(props: Props) {
 
-  const { variant } = props;
+  const { variant, handleDeleteVariant } = props;
 
   const handleDiscountValueChange = (_e: React.ChangeEvent<HTMLInputElement>, _variant: VariantType) => {
     //handle logic to save input to state or save it to db
@@ -43,6 +44,9 @@ export default function Variant(props: Props) {
           <option>Flat</option>
           <option>Percentage</option>
         </select>
+      </div>
+      <div className="flex items-center">
+        <Icon onClick={(e) => handleDeleteVariant(e, variant.id)} icon={"ic:baseline-close"} fontSize={25} />
       </div>
     </div>
   )

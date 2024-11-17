@@ -54,6 +54,18 @@ export default function Home() {
     })
   }
 
+  const handleDeleteProduct = (_e: React.MouseEvent<SVGSVGElement, MouseEvent>, productId?: number) => {
+    if (!productId) return;
+
+    if (products.length === 1) return;
+
+    const indexToDeleteAt = products.findIndex(pr => pr.id === productId);
+    setProducts(prev => {
+      prev.splice(indexToDeleteAt, 1);
+      return [...prev];
+    })
+  }
+
   return (
     <div className="w-full flex justify-center">
       <div className="w-[50%]">
@@ -70,7 +82,15 @@ export default function Home() {
             <p>Discount</p>
             <SortableContext strategy={verticalListSortingStrategy} items={products}>
               {products.map((prod, idx) => (
-                <Product setProducts={setProducts} setDiscountValue={setDiscountValue} key={idx} product={prod} openDialog={setOpenDialog} inputValue={prod.title} />
+                <Product
+                  setProducts={setProducts}
+                  setDiscountValue={setDiscountValue}
+                  key={idx}
+                  product={prod}
+                  openDialog={setOpenDialog}
+                  inputValue={prod.title}
+                  handleDeleteProduct={handleDeleteProduct}
+                />
               ))}
             </SortableContext>
           </div>

@@ -14,11 +14,12 @@ type Props = {
   inputValue: string;
   setDiscountValue: React.Dispatch<React.SetStateAction<ProductToDscount>>;
   setProducts: React.Dispatch<React.SetStateAction<Product[]>>
+  handleDeleteProduct: (e: React.MouseEvent<SVGSVGElement, MouseEvent>, productId?: number) => void
 }
 
 export default function Product(props: Props) {
 
-  const { product, openDialog, inputValue, setDiscountValue, setProducts } = props;
+  const { product, openDialog, inputValue, setDiscountValue, setProducts, handleDeleteProduct } = props;
 
   const [showDiscount, setShowDiscount] = useState<boolean>(false);
   const [showVariants, setShowVariants] = useState<boolean>(true);
@@ -68,6 +69,23 @@ export default function Product(props: Props) {
     })
   };
 
+  const handleDeleteVariant = (_e: React.MouseEvent<SVGSVGElement, MouseEvent>, variantId?: number) => {
+    if (!variantId) return;
+
+    if (!product) return;
+
+    setProducts((prev) => {
+      const prodToDeleteFromIdx = prev.findIndex(pr => pr.id === product.id);
+
+      const variantToDeleteIndex = prev[prodToDeleteFromIdx].variants.findIndex((variant) => variant.id === variantId);
+
+      prev[prodToDeleteFromIdx].variants.splice(variantToDeleteIndex, 1);
+
+      return [...prev];
+    })
+
+  }
+
   const disableAddDiscount = product === undefined;
 
   return (
@@ -103,7 +121,7 @@ export default function Product(props: Props) {
           )
         }
         <div className="flex items-center">
-          <Icon icon={"ic:baseline-close"} fontSize={25} />
+          <Icon onClick={(e) => handleDeleteProduct(e, product?.id)} icon={"ic:baseline-close"} fontSize={25} />
         </div>
       </div>
       {
@@ -121,7 +139,7 @@ export default function Product(props: Props) {
               <SortableContext strategy={verticalListSortingStrategy} items={product.variants}>
                 {
                   product.variants.map(variant => (
-                    <Variant variant={variant} setProducts={setProducts} />
+                    <Variant handleDeleteVariant={handleDeleteVariant} variant={variant} setProducts={setProducts} />
                   ))
                 }
               </SortableContext>
