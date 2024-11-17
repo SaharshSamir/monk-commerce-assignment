@@ -46,7 +46,7 @@ export default function Variant(props: Props) {
         </select>
       </div>
       <div className="flex items-center">
-        <Icon onClick={(e) => handleDeleteVariant(e, variant.id)} icon={"ic:baseline-close"} fontSize={25} />
+        <Icon onClick={(e) => handleDeleteVariant(e, variant.id)} icon={"ic:baseline-close"} color="#00000066" fontSize={25} />
       </div>
     </div>
   )

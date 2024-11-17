@@ -90,6 +90,7 @@ export default function Home() {
                   openDialog={setOpenDialog}
                   inputValue={prod.title}
                   handleDeleteProduct={handleDeleteProduct}
+                  showDeleteOption={products.length !== 1}
                 />
               ))}
             </SortableContext>

@@ -12,6 +12,7 @@ type Props = {
   product?: Product,
   openDialog: React.Dispatch<React.SetStateAction<boolean>>,
   inputValue: string;
+  showDeleteOption: boolean;
   setDiscountValue: React.Dispatch<React.SetStateAction<ProductToDscount>>;
   setProducts: React.Dispatch<React.SetStateAction<Product[]>>
   handleDeleteProduct: (e: React.MouseEvent<SVGSVGElement, MouseEvent>, productId?: number) => void
@@ -19,7 +20,7 @@ type Props = {
 
 export default function Product(props: Props) {
 
-  const { product, openDialog, inputValue, setDiscountValue, setProducts, handleDeleteProduct } = props;
+  const { showDeleteOption, product, openDialog, inputValue, setDiscountValue, setProducts, handleDeleteProduct } = props;
 
   const [showDiscount, setShowDiscount] = useState<boolean>(false);
   const [showVariants, setShowVariants] = useState<boolean>(true);
@@ -120,9 +121,11 @@ export default function Product(props: Props) {
             </div>
           )
         }
-        <div className="flex items-center">
-          <Icon onClick={(e) => handleDeleteProduct(e, product?.id)} icon={"ic:baseline-close"} fontSize={25} />
-        </div>
+        {showDeleteOption &&
+          (<div className="flex items-center">
+            <Icon onClick={(e) => handleDeleteProduct(e, product?.id)} icon={"ic:baseline-close"} color="#00000066" fontSize={25} />
+          </div>)
+        }
       </div>
       {
         product && product.variants.length > 1 && (<div onClick={() => setShowVariants(!showVariants)} className="w-full flex items-center justify-end mt-2 cursor-pointer">
