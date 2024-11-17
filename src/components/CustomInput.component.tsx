@@ -8,10 +8,23 @@ type InputProps = {
   icon?: string;
   iconPosition?: "left" | "right"
   iconAction?: Function;
+  defaultValue?: string;
+  placeHolder?: string;
+  type?: React.HTMLInputTypeAttribute;
 }
 
 export default function CustomInput(props: InputProps) {
-  const { value, icon, onChange, iconPosition = "right", className: styles, iconAction } = props;
+  const {
+    value,
+    icon,
+    onChange,
+    iconPosition = "right",
+    className: styles,
+    iconAction,
+    defaultValue,
+    placeHolder,
+    type
+  } = props;
   return (
     <div className="relative">
       {icon && <div className={`absolute inset-y-0 flex items-center ${iconPosition === "right" ? "pe-3 end-0" : "ps-3 start-0"} ${iconAction ? "cursor-pointer" : "pointer-events-none"} `}>
@@ -19,10 +32,12 @@ export default function CustomInput(props: InputProps) {
       </div>}
       <input className={`block w-full p-2 ${iconPosition === "left" ? "ps-8" : ""} text-sm text-gray-900 border border-[#EDEDED] bg-gray-50 focus:ring-0 focus:outline-none
         dark:placeholder-gray-800 ${styles}`}
-        placeholder="Select Product"
+        placeholder={placeHolder === "" ? undefined : placeHolder}
         required
-        value={value}
+        value={value === "" ? undefined : value}
         onChange={onChange}
+        defaultValue={defaultValue}
+        type={type}
       />
     </div>
   )

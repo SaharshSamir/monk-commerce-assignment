@@ -10,7 +10,9 @@ export const variantSchema = z.object({
   option1: z.string(),
   created_at: z.string(),
   updated_at: z.string(),
-  selected: z.boolean().optional()
+  selected: z.boolean().optional(),
+  discount: z.number().optional(),
+  discountType: z.enum(["flat", "percentage"]).optional()
 });
 
 export const imageSchema = z.object({
@@ -25,7 +27,9 @@ export const productSchema = z.object({
   variants: z.array(variantSchema),
   image: imageSchema.optional(),
   vendor: z.string().optional(),
-  selected: z.boolean().optional()
+  selected: z.boolean().optional(),
+  discount: z.number().optional(),
+  discountType: z.enum(["flat", "percentage"]).optional()
 
 });
 

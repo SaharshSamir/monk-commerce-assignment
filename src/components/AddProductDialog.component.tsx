@@ -7,6 +7,7 @@ import CustomInput from "./CustomInput.component";
 import { Icon } from "@iconify/react";
 import { Spinner } from "flowbite-react";
 import { useRef } from "react";
+import { ProductToDscount } from "@/pages/home";
 
 
 interface Props {
@@ -17,11 +18,12 @@ interface Props {
   setProducts: React.Dispatch<React.SetStateAction<ProductType[]>>,
   productToReplace: number,
   setProductToReplace: React.Dispatch<React.SetStateAction<number>>
+  setDiscountValue: React.Dispatch<React.SetStateAction<ProductToDscount>>;
 }
 
 export default function AddProductDialog(props: Props) {
 
-  const { open, setOpen, setProducts: setProductsAtHome, productToReplace } = props;
+  const { open, setOpen, setProducts: setProductsAtHome, productToReplace, setDiscountValue } = props;
 
   const [products, setProducts] = useState<ProductType[]>([]);
   const [searchInput, setSearchInput] = useState<string>("");
@@ -103,9 +105,8 @@ export default function AddProductDialog(props: Props) {
         pr.selected = false;
         return pr;
       })
-    })
+    });
   }
-
 
   const handleProductClick = useCallback((e: React.ChangeEvent<HTMLInputElement>, p: ProductType) => {
     setProducts((prevProducts) =>
@@ -150,10 +151,6 @@ export default function AddProductDialog(props: Props) {
   }, []);
 
 
-  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchInput(e.target.value);
-  }
-
   return (
     <DialogContent className="p-0 h-[70vh] max-w-[35%] overflow-hidden">
       <div>
@@ -162,7 +159,7 @@ export default function AddProductDialog(props: Props) {
           <div className="w-full p-4">
             <CustomInput
               value={searchInput}
-              onChange={handleSearchChange}
+              onChange={(e) => setSearchInput(e.target.value)}
               icon="material-symbols-light:search"
               iconPosition="left"
               className="bg-white border focus:border border-gray-100"
